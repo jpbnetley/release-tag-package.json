@@ -18,7 +18,7 @@ runs:
     id: package
     shell: bash
     run: |
-      version=$(node -p "require('./package.json').version")
+      package=$(node -p "require('./package.json').version")
       echo "version from package json: $version"
       echo "version=$version" >> $GITHUB_OUTPUT
 
@@ -39,9 +39,9 @@ runs:
     if: steps.check_tag.outputs.tag_exists == 'false'
     shell: bash
     run: |
-      echo "Creating release tag: ${{ steps.check_tag.outputs.tag_exists }}"
-      gh release create ${{ steps.check_tag.outputs.tag_name }} \
-        --title "${{ steps.check_tag.outputs.tag_name }}"
+      echo "Creating release tag: ${{ steps.package.outputs.version }}"
+      gh release create ${{ steps.package.outputs.version }} \
+        --title "${{ steps.package.outputs.version }}"
     env:
       GH_TOKEN: ${{ github.token }}
 
