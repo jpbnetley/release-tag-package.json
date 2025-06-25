@@ -33,6 +33,8 @@ runs:
         echo "Tag ${{ steps.package.outputs.version }} does not exist."
         echo "tag_exists=false" >> $GITHUB_OUTPUT
       fi
+    env:
+      GH_TOKEN: ${{ github.token }}
 
   - name: Create Release Tag
     if: steps.check_tag.outputs.tag_exists == 'false'
