@@ -12,6 +12,16 @@ permissions:
   contents: write
 ```
 
+## Inputs
+```yml
+package_json_path:
+  description: 'the path to the package.json file to read the version from'
+  required: false
+  default: './package.json'
+github_token:
+  description: 'GitHub token with permissions to create releases.'
+  required: true
+```
 
 ## Example workflow
 ```yml
