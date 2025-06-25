@@ -37,3 +37,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
 ```
+
+## Ref
+https://github.com/jpbnetley/test-release-tag-package.json
