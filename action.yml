@@ -1,0 +1,39 @@
+name: Release Tag Package
+description: This action creates a release tag and uploads the package to the release.
+
+inputs:
+  package_json_path:
+    description: 'the path to the package.json file to read the version from'
+    required: false
+    default: './package.json'
+  github_token:
+    description: 'GitHub token with permissions to create releases.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+
+  - name: Get version from package.json
+    id: package
+    shell: bash
+    run: |
+      version=$(node -p "require('./package.json').version")
+      echo "version from package json: $version"
+      echo "version=$version" >> $GITHUB_OUTPUT
+
+  - name: 'Check if tag already exists'
+    id: check_tag
+    run: |
+      tag_exists=$(gh release view ${{ inputs.tag_name }} > /dev/null 2>&1 && echo true || echo false)
+      if [ "$tag_exists" = true ]; then
+        echo "Tag ${{ inputs.tag_name }} already exists. Skipping creation."
+      fi
+      echo "tag_exists=$tag_exists" >> $GITHUB_OUTPUT
+
+  - name: Create Release Tag
+    if: steps.check_tag.outputs.tag_exists == 'false'
+    run: |
+      echo "Creating release tag: ${{ inputs.tag_name }}"
+      gh release create ${{ inputs.tag_name }} --title "${{ inputs.tag_name }}"
+
