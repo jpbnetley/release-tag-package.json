@@ -11,3 +11,29 @@ The following actions need to be in scope
 permissions:
   contents: write
 ```
+
+
+## Example workflow
+```yml
+name: Release form package job
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: release
+        uses: jpbnetley/release-tag-package.json@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+```
