@@ -39,9 +39,9 @@ runs:
     if: steps.check_tag.outputs.tag_exists == 'false'
     shell: bash
     run: |
-      echo "Creating release tag: ${{ inputs.check_tag.outputs.tag_name }}"
-      gh release create ${{ inputs.tag_name }} \
-        --title "${{ inputs.tag_name }}"
+      echo "Creating release tag: ${{ steps.check_tag.outputs.tag_name }}"
+      gh release create ${{ steps.check_tag.outputs.tag_name }} \
+        --title "${{ steps.check_tag.outputs.tag_name }}"
     env:
       GH_TOKEN: ${{ github.token }}
 
