@@ -26,8 +26,7 @@ runs:
     id: check_tag
     shell: bash
     run: |
-      tag_exists=$(gh release view ${{ steps.package.outputs.version }} > /dev/null 2>&1 && echo true || echo false)
-      if [ "$tag_exists" = true ]; then
+      if gh release view ${{ steps.package.outputs.version }} > /dev/null 2>&1; then
         echo "Tag ${{ steps.package.outputs.version }} already exists. Skipping creation."
         echo "tag_exists=true" >> $GITHUB_OUTPUT
       else
