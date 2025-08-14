@@ -46,7 +46,7 @@ runs:
     run: |
       trailing_text="${{ inputs.release_branch_name && format('deployed from {0} branch', inputs['release_branch_name'] || github.ref_name) }}"
       echo "text=$trailing_text" >> $GITHUB_OUTPUT
-      echo "Creating release tag: ${{ steps.package.outputs.version }} ${{ trailing_text }}"
+      echo "Creating release tag: ${{ steps.package.outputs.version }} $trailing_text"
 
       gh release create ${{ steps.package.outputs.version }} \
         --title "${{ steps.package.outputs.version }}" \
