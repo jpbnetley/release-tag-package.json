@@ -55,6 +55,7 @@ runs:
       GH_TOKEN: ${{ github.token }}
 
   - name: Generate GitHub Summary
+    shell: bash
     run: |
       echo "## Release Summary" >> $GITHUB_STEP_SUMMARY
       echo "Release ${{ steps.package.outputs.version }} created successfully ${{ steps.release_tag.outputs.text }}." >> $GITHUB_STEP_SUMMARY
