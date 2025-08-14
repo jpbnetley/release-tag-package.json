@@ -9,9 +9,9 @@ inputs:
   github_token:
     description: 'GitHub token with permissions to create releases.'
     required: true
-release_branch_name:
-  description: 'the name of the branch create a release from'
-  required: false
+  release_branch_name:
+    description: 'the name of the branch create a release from'
+    required: false
 
 runs:
   using: 'composite'
